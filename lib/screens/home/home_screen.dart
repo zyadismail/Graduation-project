@@ -121,21 +121,48 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 71,
             ),
             Center(
-              child: FloatingActionButton(
-                shape: const CircleBorder(),
-                onPressed: () async{
-                  ImagePicker imagePicker = ImagePicker();
-                  XFile? image = await imagePicker.pickImage(source: ImageSource.camera);
-                  if (image != null) {
-                    setState(() {
-                      _image = image.path;
-                    });
-                  }
-                },
-                backgroundColor: Colors.red,
-                child: const Icon(Icons.circle, color: Colors.white, size: 30),
+              child: SizedBox(
+                height: 51,
+                width: 166,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                  ),
+                  onPressed: ()async {
+                    ImagePicker imagePicker = ImagePicker();
+                    XFile? image = await imagePicker.pickImage(source: ImageSource.camera);
+                    if (image!= null) {
+                      setState(() {
+                        _image = image.path;
+                      });
+                    }
+                  },
+                  child: const Text(
+                    "Let's Start",
+                    style: TextStyle(
+                        color: Color(0xff70ABD3),
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
               ),
-            ),
+            )
+            // Center(
+            //   child: FloatingActionButton(
+            //     shape: const CircleBorder(),
+            //     onPressed: () async{
+            //       ImagePicker imagePicker = ImagePicker();
+            //       XFile? image = await imagePicker.pickImage(source: ImageSource.camera);
+            //       if (image != null) {
+            //         setState(() {
+            //           _image = image.path;
+            //         });
+            //       }
+            //     },
+            //     backgroundColor: Colors.red,
+            //     child: const Icon(Icons.circle, color: Colors.white, size: 30),
+            //   ),
+            // ),
           ],
         ),
       ),

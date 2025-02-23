@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_project/screens/home/home_screen.dart';
+import 'package:graduation_project/screens/layout/lay_out_screen.dart';
 import 'package:graduation_project/screens/sign_up/sign_up_screen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -101,12 +101,6 @@ class _SignInScreenState extends State<SignInScreen> {
                                             10,
                                           )),
                                     ),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter your email';
-                                      }
-                                      return null;
-                                    },
                                   ),
                                   const SizedBox(height: 26),
                                   TextFormField(
@@ -127,12 +121,6 @@ class _SignInScreenState extends State<SignInScreen> {
                                               : const Icon(Icons.visibility),
                                         )),
                                     obscureText: _isObscure,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter your password';
-                                      }
-                                      return null;
-                                    },
                                   ),
                                   const SizedBox(
                                     height: 8,
@@ -158,12 +146,16 @@ class _SignInScreenState extends State<SignInScreen> {
                                     height: 50,
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (_) => const HomeScreen(),
-                                          ),
-                                        );
+                                        if (_formKey.currentState!.validate()) {
+                                          Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) =>
+                                                  const LayoutScreen(),
+                                            ),
+                                            (route) => false,
+                                          );
+                                        }
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor:

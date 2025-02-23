@@ -39,6 +39,8 @@ dependencies:
   flutter_svg: ^2.0.17
   image_picker: ^1.1.2
   google_fonts: ^6.2.1
+  curved_navigation_bar: ^1.0.6
+  awesome_snackbar_content: ^0.1.5
 
 dev_dependencies:
   flutter_test:
