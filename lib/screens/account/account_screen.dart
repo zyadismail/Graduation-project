@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project/screens/account/widgets/Helper_widget.dart';
 import 'package:graduation_project/screens/account/widgets/listTile_widget.dart';
 import 'package:graduation_project/screens/contact_details/contact_details.dart';
+import 'package:graduation_project/screens/profile/profile_screen.dart';
 import 'package:graduation_project/screens/sign_in/sign_in_screen.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -20,15 +22,30 @@ class AccountScreen extends StatelessWidget {
           ),
         ),
         actions: [
+          CircleAvatar(
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const ProfileScreen(),
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.person,
+              ),
+            ),
+          ),
           IconButton(
-            onPressed: () {
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
                   builder: (_) => const SignInScreen(),
                 ),
-                (route) => false
-                ,
+                (route) => false,
               );
             },
             icon: const Icon(Icons.logout),
@@ -44,15 +61,15 @@ class AccountScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 HelperWidgets(
-                  icon: Icons.question_mark,
+                  img: 'assets/images/questionMark.png',
                   text: "Help",
                 ),
                 HelperWidgets(
-                  icon: Icons.wallet,
+                  img: 'assets/images/wallet.png',
                   text: "Wallet",
                 ),
                 HelperWidgets(
-                  icon: Icons.local_activity,
+                  img: 'assets/images/activity.png',
                   text: "Activity",
                 ),
               ],

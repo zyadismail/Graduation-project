@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class HelperWidgets extends StatelessWidget {
-  final String text;
-  final IconData icon;
-  const HelperWidgets({super.key, required this.text, required this.icon});
+  final String img  , text;
+
+  const HelperWidgets({super.key, required this.img , required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +17,10 @@ class HelperWidgets extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            icon,
-            size: 35,
+          Image.asset(
+            img,
+            height: 35,
+            width: 35,
           ),
           Text(
             text,
