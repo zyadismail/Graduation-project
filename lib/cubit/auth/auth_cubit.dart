@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/models/user_model.dart';
 import 'package:meta/meta.dart';
 
 part 'auth_state.dart';
@@ -11,6 +13,7 @@ class AuthCubit extends Cubit<AuthState> {
   static AuthCubit get(context) => BlocProvider.of(context);
 
   final _auth = FirebaseAuth.instance;
+  final _fireStore = FirebaseFirestore.instance;
 
   void register({
     required String firstName,
@@ -21,27 +24,40 @@ class AuthCubit extends Cubit<AuthState> {
     required String confirmPassword,
   }) async {
     emit(RegisterLoading());
+
     await _auth
         .createUserWithEmailAndPassword(email: email, password: password)
-        .then((value) {
-      emit(RegisterSuccuess());
+        .then((value) async {
+      final user = value.user;
+      if (user != null) {
+        final newUser = UserModel(
+          id: user.uid,
+          fristName: firstName,
+          lastName: lastName,
+          email: user.email ?? "",
+          phone: phone,
+        );
+
+        await _fireStore
+            .collection("users")
+            .doc(user.uid)
+            .set(newUser.toJson());
+
+        emit(RegisterSuccuess());
+      }
     }).catchError((error) {
       if (error is FirebaseAuthException) {
         if (error.code == "weak-password") {
-          emit(
-            RegisterError(message: 'The password Provided is too Weak'),
-          );
+          emit(RegisterError(message: 'The password Provided is too Weak'));
         } else if (error.code == "email-already-in-use") {
-          emit(
-            RegisterError(message: 'The email is already in use'),
-          );
+          emit(RegisterError(message: 'The email is already in use'));
         } else {
           emit(
               RegisterError(message: "Authentication Failed ${error.message}"));
         }
       } else {
         emit(RegisterError(
-            message: "An Unknown error occured ${error.message}"));
+            message: "An Unknown error occurred ${error.toString()}"));
       }
     });
   }
@@ -50,26 +66,26 @@ class AuthCubit extends Cubit<AuthState> {
     required String email,
     required String password,
   }) async {
-    emit(RegisterLoading());
+    emit(LoginLoading());
     await _auth
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
-      emit(RegisterSuccuess());
+      emit(LoginSuccuess());
     }).catchError((e) {
       if (e is FirebaseAuthException) {
         if (e.code == "weak-password") {
           emit(
-            RegisterError(message: 'No user found for that email.'),
+            LoginError(message: 'No user found for that email.'),
           );
         } else if (e.code == "wrong-password") {
           emit(
-            RegisterError(message: 'Wrong password provided for that user.'),
+            LoginError(message: 'Wrong password provided for that user.'),
           );
         } else {
-          emit(RegisterError(message: "Authentication Failed ${e.message}"));
+          emit(LoginError(message: "Authentication Failed ${e.message}"));
         }
       } else {
-        emit(RegisterError(message: "An Unknown error occured ${e.message}"));
+        emit(LoginError(message: "An Unknown error occured ${e.message}"));
       }
     });
   }

@@ -22,7 +22,10 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   void initState() {
     super.initState();
-    _controller = CameraController(cameras[0], ResolutionPreset.max);
+    _controller = CameraController(
+      cameras[0],
+      ResolutionPreset.max,
+    );
     _initializeControllerFuture = _controller.initialize();
   }
 
@@ -40,7 +43,7 @@ class _CameraScreenState extends State<CameraScreen> {
         _isRecording = true;
       });
     }
-    _recordingTimer = Timer(const Duration(seconds: 20), () async {
+    _recordingTimer = Timer(const Duration(seconds: 5), () async {
       if (_isRecording) {
         await _stopRecording(context);
       }
@@ -75,10 +78,11 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xff70ABD3),
-        title: const Text('Camera'),
-      ),
+      // appBar: AppBar(
+      //   elevation: 0.0,
+      //   backgroundColor: Colors.transparent,
+      //   title: const Text('Camera', style: TextStyle(color: Colors.white),),
+      // ),
       body: FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
@@ -87,7 +91,8 @@ class _CameraScreenState extends State<CameraScreen> {
           }
           return Stack(
             children: [
-              CameraPreview(_controller),
+              SizedBox(
+                  height: double.infinity, child: CameraPreview(_controller)),
               Positioned(
                 bottom: 30,
                 left: 0,
@@ -116,14 +121,18 @@ class _CameraScreenState extends State<CameraScreen> {
                       final isUploading = state is VideoUploadInProgress;
                       return FloatingActionButton(
                         backgroundColor:
-                            _isRecording ? Colors.red : const Color(0xff70ABD3),
+                            _isRecording ? Colors.red : Colors.black,
                         onPressed: isUploading
                             ? null
                             : () => _handleRecordingToggle(context),
                         child: isUploading
                             ? const CircularProgressIndicator(
-                                color: Colors.white)
-                            : Icon(_isRecording ? Icons.stop : Icons.videocam),
+                                color: Colors.white,
+                              )
+                            : Icon(
+                                _isRecording ? Icons.stop : Icons.videocam,
+                                color: Colors.white,
+                              ),
                       );
                     },
                   ),
@@ -193,3 +202,6 @@ class _CameraScreenState extends State<CameraScreen> {
     );
   }
 }
+
+
+

@@ -26,3 +26,12 @@ class VideoUploadFailure extends AppState {
   List<Object?> get props => [error];
 }
 
+
+final class Reportloading extends AppState {}
+final class ReportSuccess extends AppState {}
+final class ReportError extends AppState {
+  final String message;
+  ReportError(this.message);
+}
+
+

@@ -14,3 +14,22 @@ final class RegisterError extends AuthState {
 
   RegisterError({required this.message});
 }
+
+final class LoginLoading extends AuthState {}
+
+final class LoginSuccuess extends AuthState {}
+
+final class LoginError extends AuthState {
+  final String message;
+
+  LoginError({required this.message});
+}
+
+
+
+final class UserLoading extends AuthState {}
+final class UserSuccess extends AuthState {}
+final class UserError extends AuthState {
+  final String message;
+  UserError({required this.message});
+}

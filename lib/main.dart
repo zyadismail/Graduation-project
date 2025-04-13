@@ -10,6 +10,7 @@ import 'package:graduation_project/screens/layout/lay_out_screen.dart';
 import 'package:graduation_project/screens/sign_in/sign_in_screen.dart';
 import 'package:graduation_project/service/dio.dart';
 import 'package:permission_handler/permission_handler.dart';
+
 late List<CameraDescription> cameras;
 
 Future<void> requestCameraPermission() async {
@@ -26,23 +27,22 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({super.key});
-    final videoService = VideoService();
-
+  MyApp({super.key});
+  final videoService = VideoService();
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AuthCubit(),
+          create: (context) => AppCubit(videoService)..getReport(),
         ),
         BlocProvider(
-          create: (context) => AppCubit(videoService),
+          create: (context) => AuthCubit(),
         ),
       ],
       child: MaterialApp(

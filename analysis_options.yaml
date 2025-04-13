@@ -17,6 +17,7 @@ analyzer:
     use_super_parameters: ignore
     must_be_immutable: ignore
     override_on_non_overriding_member: ignore
+    non_constant_identifier_names: ignore
 include: package:flutter_lints/flutter.yaml
 
 linter:

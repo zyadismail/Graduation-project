@@ -159,7 +159,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:graduation_project/screens/contact_details/camera_screen.dart';
+import 'package:graduation_project/screens/camera/camera_screen.dart';
 import 'package:video_player/video_player.dart';
 
 class HomeScreen extends StatefulWidget {

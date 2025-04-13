@@ -91,7 +91,9 @@ class ProfileScreen extends StatelessWidget {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xffEBEAEA)),
-                    onPressed: () {},
+                    onPressed: () {
+                      showDeleteAccountDialog(context);
+                    },
                     child: const Text(
                       "Delete account",
                       style: TextStyle(
@@ -103,6 +105,76 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
               )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void showDeleteAccountDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        alignment: Alignment.bottomCenter,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.warning_rounded, size: 48, color: Colors.red),
+              const SizedBox(height: 16),
+              const Text(
+                "Permanently delete\n your account?",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700,
+                ),
+                textAlign: TextAlign.start,
+              ),
+              const SizedBox(height: 12),
+              const Text.rich(
+                TextSpan(
+                  text:
+                      'This action will permanently delete your account and profile information from Taxi Guard',
+                  style: TextStyle(
+                      fontSize: 20,
+                      height: 1.5,
+                      color: Color(0xff3F3F3F),
+                      fontWeight: FontWeight.w400),
+                ),
+                textAlign: TextAlign.start,
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                  minimumSize: const Size.fromHeight(48),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Delete my account'),
+              ),
+              const SizedBox(height: 12),
+              Center(
+                child: TextButton(
+                  
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    'Keep my account',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

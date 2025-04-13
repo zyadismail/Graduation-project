@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:graduation_project/screens/report/report_screen.dart';
+import 'package:graduation_project/screens/issue/issue_screen.dart';
 
 class ContactDetailsScreen extends StatelessWidget {
   const ContactDetailsScreen({super.key});
@@ -49,7 +49,7 @@ class ContactDetailsScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => const ReportScreen(),
+                    builder: (_) => const IssueScreen(),
                   ),
                 );
               },

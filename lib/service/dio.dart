@@ -6,8 +6,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart';
 
 class VideoService {
-  static const String baseUrl =
-      'https://1986-41-35-179-202.ngrok-free.app/api/upload/';
+  static const String baseUrl = 'https://3acb-41-232-171-97.ngrok-free.app/api/upload/';
 
   Future<Response?> postVideo(String videoPath,
       {Function(double)? onProgress}) async {
@@ -47,5 +46,20 @@ class VideoService {
       print('Video upload failed: $e');
       return null;
     }
+  }
+
+   Future<Response> getReport({
+    Map<String, dynamic>? query,
+  }) async {
+    final dio = Dio();
+    dio.options.headers = {
+      'lang': 'en',
+      'Content-Type': 'application/json',
+      'Connection': 'keep-alive',
+    };
+    return await dio.get(
+      "https://3acb-41-232-171-97.ngrok-free.app/api/report/207/",
+      queryParameters: query,
+    );
   }
 }
