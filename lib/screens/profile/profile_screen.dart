@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation_project/screens/personial_details/personal_detials.dart';
+import 'package:graduation_project/screens/profile/widgets/listTile_profile.dart';
+import 'package:graduation_project/screens/sign_in/sign_in_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -8,175 +12,87 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Edit profile",
-          style: TextStyle(fontWeight: FontWeight.w400, fontSize: 18),
+          'Profile',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 22, left: 27),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Account profile",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
-                ),
+      body: Center(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 58,
+            ),
+            const CircleAvatar(
+              radius: 70,
+              backgroundImage: AssetImage(
+                'assets/images/robot.png',
               ),
-              const SizedBox(
-                height: 42,
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            const Text(
+              "Ziad ismail",
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 27,
               ),
-              const Text("First Name"),
-              const TextField(
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(0),
-                    border: OutlineInputBorder(borderSide: BorderSide.none),
-                    hintText: 'Ziad'),
+            ),
+            const Text(
+              "ziadismail949@gmail.com",
+              style: TextStyle(
+                color: Colors.grey,
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
               ),
-              const Divider(
-                thickness: 2,
-                color: Color(0xffD9D9D9),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              const Text("Last Name"),
-              const TextField(
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(0),
-                  border: OutlineInputBorder(borderSide: BorderSide.none),
-                  hintText: 'ismail',
-                ),
-              ),
-              const Divider(
-                thickness: 2,
-                color: Color(0xffD9D9D9),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              const Text("Phone number"),
-              const TextField(
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(0),
-                  border: OutlineInputBorder(borderSide: BorderSide.none),
-                  hintText: '01153475072',
-                ),
-              ),
-              const Divider(
-                thickness: 2,
-                color: Color(0xffD9D9D9),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              const Text("Email"),
-              const TextField(
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(0),
-                  border: OutlineInputBorder(borderSide: BorderSide.none),
-                  hintText: "ziadismail949@gmail.com",
-                ),
-              ),
-              const SizedBox(
-                height: 100,
-              ),
-              Center(
-                child: SizedBox(
-                  height: 48,
-                  width: 174,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xffEBEAEA)),
-                    onPressed: () {
-                      showDeleteAccountDialog(context);
-                    },
-                    child: const Text(
-                      "Delete account",
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                      ),
-                    ),
+            ),
+            const SizedBox(
+              height: 52,
+            ),
+            ListTileProfile(
+              text: "Personal Details",
+              leading: Icons.settings,
+              trailing: Icons.arrow_forward,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const PersonalDetailsScreen(),
                   ),
+                );
+              },
+            ),
+            const SizedBox(
+              height: 45,
+            ),
+            ListTileProfile(
+              text: "Customer Support",
+              leading: Icons.question_mark,
+              trailing: Icons.arrow_forward,
+              onTap: () {},
+            ),
+            const SizedBox(
+              height: 45,
+            ),
+            ListTileProfile(
+              text: "LogOut",
+              leading: Icons.logout_outlined,
+              onTap: () async{
+                await FirebaseAuth.instance.signOut();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const SignInScreen(),
                 ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void showDeleteAccountDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => Dialog(
-        alignment: Alignment.bottomCenter,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.warning_rounded, size: 48, color: Colors.red),
-              const SizedBox(height: 16),
-              const Text(
-                "Permanently delete\n your account?",
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w700,
-                ),
-                textAlign: TextAlign.start,
-              ),
-              const SizedBox(height: 12),
-              const Text.rich(
-                TextSpan(
-                  text:
-                      'This action will permanently delete your account and profile information from Taxi Guard',
-                  style: TextStyle(
-                      fontSize: 20,
-                      height: 1.5,
-                      color: Color(0xff3F3F3F),
-                      fontWeight: FontWeight.w400),
-                ),
-                textAlign: TextAlign.start,
-              ),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  foregroundColor: Colors.white,
-                  minimumSize: const Size.fromHeight(48),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Delete my account'),
-              ),
-              const SizedBox(height: 12),
-              Center(
-                child: TextButton(
-                  
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text(
-                    'Keep my account',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
-              ),
-            ],
-          ),
+                (route) => false,
+              );
+              },
+            ),
+          ],
         ),
       ),
     );

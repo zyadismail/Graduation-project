@@ -1,5 +1,8 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/cubit/auth/auth_cubit.dart';
+import 'package:graduation_project/models/issue_model.dart';
 
 class IssueScreen extends StatefulWidget {
   const IssueScreen({super.key});
@@ -145,6 +148,14 @@ class _IssueScreenState extends State<IssueScreen> {
                               backgroundColor: const Color(0xffD9D9D9)),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
+                              context.read<AuthCubit>().sendIssue(
+                                    IssueModel(
+                                      phone: _phoneController.text,
+                                      email: _emailController.text,
+                                      issue: _issueController.text,
+                                    ),
+                                  );
+
                               var snackBar = const SnackBar(
                                 elevation: 0.0,
                                 behavior: SnackBarBehavior.floating,

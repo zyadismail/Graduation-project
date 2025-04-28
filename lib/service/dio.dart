@@ -6,7 +6,8 @@ import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart';
 
 class VideoService {
-  static const String baseUrl = 'https://3acb-41-232-171-97.ngrok-free.app/api/upload/';
+  static const String baseUrl =
+      'https://4f78-197-37-30-114.ngrok-free.app/api/upload/';
 
   Future<Response?> postVideo(String videoPath,
       {Function(double)? onProgress}) async {
@@ -40,7 +41,6 @@ class VideoService {
           }
         },
       );
-
       return response;
     } catch (e) {
       print('Video upload failed: $e');
@@ -48,7 +48,9 @@ class VideoService {
     }
   }
 
-   Future<Response> getReport({
+
+  Future<Response> getReport({
+    required int id,
     Map<String, dynamic>? query,
   }) async {
     final dio = Dio();
@@ -58,8 +60,11 @@ class VideoService {
       'Connection': 'keep-alive',
     };
     return await dio.get(
-      "https://3acb-41-232-171-97.ngrok-free.app/api/report/207/",
+      "https://4f78-197-37-30-114.ngrok-free.app/api/report/$id",
       queryParameters: query,
     );
   }
 }
+
+
+

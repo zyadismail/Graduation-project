@@ -8,8 +8,8 @@ class HelperWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 90,
-      height: 90,
+      width: 120,
+      height: 120,
       decoration: BoxDecoration(
         color: const Color(0xffEBEAEA),
         borderRadius: BorderRadius.circular(15),
@@ -25,7 +25,7 @@ class HelperWidgets extends StatelessWidget {
           Text(
             text,
             style: const TextStyle(
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.w500,
               fontSize: 20,
             ),
           )

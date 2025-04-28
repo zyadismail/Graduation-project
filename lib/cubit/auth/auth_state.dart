@@ -33,3 +33,16 @@ final class UserError extends AuthState {
   final String message;
   UserError({required this.message});
 }
+
+final class SendIssueLoading extends AuthState {}
+final class SendIssueSuccess extends AuthState {}
+final class SendIssueError extends AuthState {
+  final String message;
+  SendIssueError(
+    this.message
+  );
+}
+
+
+
+

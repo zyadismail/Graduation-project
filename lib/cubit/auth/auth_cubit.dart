@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_project/models/issue_model.dart';
 import 'package:graduation_project/models/user_model.dart';
 import 'package:meta/meta.dart';
 
@@ -88,5 +89,18 @@ class AuthCubit extends Cubit<AuthState> {
         emit(LoginError(message: "An Unknown error occured ${e.message}"));
       }
     });
+  }
+
+  void sendIssue(IssueModel issueModel) async {
+    emit(SendIssueLoading());
+    try {
+      String docId = _fireStore.collection("issues").doc().id;
+
+      await _fireStore.collection("issues").doc(docId).set(issueModel.toJson());
+
+      emit(SendIssueSuccess());
+    } catch (e) {
+      emit(SendIssueError(e.toString()));
+    }
   }
 }

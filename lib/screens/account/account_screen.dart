@@ -1,11 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation_project/screens/aboutUs/about_us.dart';
 import 'package:graduation_project/screens/account/widgets/Helper_widget.dart';
 import 'package:graduation_project/screens/account/widgets/listTile_widget.dart';
 import 'package:graduation_project/screens/contact_details/contact_details.dart';
 import 'package:graduation_project/screens/profile/profile_screen.dart';
-import 'package:graduation_project/screens/sign_in/sign_in_screen.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -24,31 +23,14 @@ class AccountScreen extends StatelessWidget {
         actions: [
           CircleAvatar(
             child: IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const ProfileScreen(),
-                  ),
-                );
-              },
+              onPressed: () {},
               icon: const Icon(
                 Icons.person,
               ),
             ),
           ),
-          IconButton(
-            onPressed: () async {
-              await FirebaseAuth.instance.signOut();
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const SignInScreen(),
-                ),
-                (route) => false,
-              );
-            },
-            icon: const Icon(Icons.logout),
+          const SizedBox(
+            width: 15,
           ),
         ],
       ),
@@ -57,18 +39,22 @@ class AccountScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                HelperWidgets(
-                  img: 'assets/images/questionMark.png',
-                  text: "Help",
+                InkWell(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=> const AboutUsScreen()));
+                  },
+                  child: const HelperWidgets(
+                    img: 'assets/images/questionMark.png',
+                    text: "About Us",
+                  ),
                 ),
-                HelperWidgets(
-                  img: 'assets/images/wallet.png',
-                  text: "Wallet",
+                const SizedBox(
+                  width: 79,
                 ),
-                HelperWidgets(
+                const HelperWidgets(
                   img: 'assets/images/activity.png',
                   text: "Activity",
                 ),
@@ -77,24 +63,31 @@ class AccountScreen extends StatelessWidget {
             const SizedBox(
               height: 89,
             ),
+            // ListTitleWidget(
+            //   leading: Icons.family_restroom,
+            //   text: 'Family',
+            //   onTap: () {},
+            // ),
+            const SizedBox(
+              height: 30,
+            ),
             ListTitleWidget(
-              icon: Icons.family_restroom,
-              text: 'Family',
-              onTap: () {},
+              leading: Icons.settings,
+              text: 'Profile',
+              onTap: () {
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const ProfileScreen(),
+                  ),
+                );
+              },
             ),
             const SizedBox(
               height: 30,
             ),
             ListTitleWidget(
-              icon: Icons.settings,
-              text: 'Settings',
-              onTap: () {},
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            ListTitleWidget(
-              icon: Icons.contact_mail,
+              leading: Icons.contact_mail,
               text: 'Contact Us',
               onTap: () {
                 Navigator.push(
@@ -104,14 +97,6 @@ class AccountScreen extends StatelessWidget {
                   ),
                 );
               },
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            ListTitleWidget(
-              icon: Icons.check_outlined,
-              text: 'Legal',
-              onTap: () {},
             ),
           ],
         ),
