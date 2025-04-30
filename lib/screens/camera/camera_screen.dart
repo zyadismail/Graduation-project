@@ -92,8 +92,9 @@ class _CameraScreenState extends State<CameraScreen> {
           return Stack(
             children: [
               SizedBox(
-                  height: double.infinity, child: CameraPreview(_controller)),
-         
+                height: double.infinity,
+                child: CameraPreview(_controller),
+              ),
               Positioned(
                 bottom: 30,
                 left: 0,
@@ -116,6 +117,7 @@ class _CameraScreenState extends State<CameraScreen> {
                             backgroundColor: Colors.red,
                           ),
                         );
+                        Navigator.pop(context, _recordedPath);
                       }
                     },
                     builder: (context, state) {
