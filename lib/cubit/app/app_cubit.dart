@@ -121,7 +121,7 @@ class AppCubit extends Cubit<AppState> {
     
     emit(Reportloading());
     await _videoService.getReport(
-      id: _id!,
+      // id: _id!,
     ).then((value) {
       reportModel = ReportModel.fromJson(value.data);
       emit(ReportSuccess());
@@ -130,7 +130,7 @@ class AppCubit extends Cubit<AppState> {
     });
   }
 
-  void refreshReport() {
+  Future <void> refreshReport() async{
     if (_id != null) {
       getReport();
     }

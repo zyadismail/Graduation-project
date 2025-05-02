@@ -7,7 +7,7 @@ import 'package:path/path.dart';
 
 class VideoService {
   static const String baseUrl =
-      'https://4f78-197-37-30-114.ngrok-free.app/api/upload/';
+      'https://7c85-197-37-157-78.ngrok-free.app/api/upload/';
 
   Future<Response?> postVideo(String videoPath,
       {Function(double)? onProgress}) async {
@@ -50,7 +50,7 @@ class VideoService {
 
 
   Future<Response> getReport({
-    required int id,
+    // required int id,
     Map<String, dynamic>? query,
   }) async {
     final dio = Dio();
@@ -60,7 +60,7 @@ class VideoService {
       'Connection': 'keep-alive',
     };
     return await dio.get(
-      "https://4f78-197-37-30-114.ngrok-free.app/api/report/$id",
+      "https://7c85-197-37-157-78.ngrok-free.app/api/report/detail/1/",
       queryParameters: query,
     );
   }
